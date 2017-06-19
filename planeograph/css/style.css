@@ -1,0 +1,67 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	vertical-align: top;
+	text-align: center;
+	font-family: sans-serif;
+}
+
+article, aside, footer, header, hgroup, main, nav, section {
+	display: block;
+}
+
+body {
+	overflow-x: hidden;
+	/*zoom: 0.99;*/
+}
+
+/*textarea {
+	border: 0;
+	resize: none;
+	width: 100%;
+	padding: 1%;
+	background-color: transparent;
+	overflow: hidden;
+	text-align: left;
+}
+*/
+
+.card, .card > * {
+	font-family: 'Nova Flat', Helvetica, sans-serif;
+}
+
+/* Google fonts */
+@font-face {
+  font-family: 'Nova Flat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nova Flat'), local('NovaFlat'), url(../fonts/vFeor41nvsomiEVSx6n4iltXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
+
+/* fallback */
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(../fonts/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.7;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}

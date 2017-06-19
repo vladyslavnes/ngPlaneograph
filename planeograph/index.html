@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="PlaneographApp" ng-init="getData()">
+<head>
+	<meta charset="UTF-8">
+	<title>Planeograph</title>
+	<script src="js/lib/angular.min.js"></script>
+	<script src="js/lib/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="css/style.css">
+ 	<link rel="stylesheet" href="css/materialize.css">	
+</head>
+<body class="grey lighten-2">
+	<div class="container" ng-controller="PlaneographCtrl">
+	
+		<!-- Search  -->
+		<nav class="grey darken-2 white-text hiden">
+			<div class="btn-floating red darken-4"><i class="material-icons" style="line-height: 1.8;">search</i></div>
+		</nav>
+	
+		<!-- Plane -->
+		<section ng-repeat="plane in planes track by $index" ng-init="planeID = $index" class="row m2">
+		
+		<!-- Header -->
+			
+			<header class="row">
+				<nav class="red lighten-2">
+					<span class="left">#{{planeID+1}}</span>
+					<!-- Buttons -->
+				
+					<button class="btn-large blue" ng-click="deletePlane($index)">delete plane</button>
+					<button class="btn-large blue" ng-click="addNtt($index,'note')">add note</button>
+				</nav>
+			</header>
+			<div ng-repeat="entity in plane.children track by $index" ng-attr-class="{{entity.color}} card col l4 m4 s12 flow-text" ng-attr-id="ntt_{{planeID}}_{{$index}}">
+				<!-- Top -->
+				
+				<div class="left">#{{$index+1}}</div>
+
+				<div class="right btn-floating white" ng-click="setColor(planeID,$index)">
+					<i class="material-icons indigo-text">palette</i>
+				</div>
+
+				<!-- Images -->
+				
+			<div class="card-image left">
+					<img class="" ng-repeat="image in entity.images track by $index" ng-attr-src="{{image.src}}" ng-attr-alt="{{image.src}}">
+				</div>
+
+				<!-- Content -->
+				
+				<div class="card-content">
+					<h3 class="card-title" contenteditable="true">{{entity.title}}</h3>
+					<p class="card-content" contenteditable="true">{{entity.content}}</p>
+				</div>
+				
+				<!-- Buttons -->
+				
+				<div class="card-action">
+					<div class="btn-floating red" ng-click="saveNtt(planeID,$index)"><i class="material-icons">save</i></div>
+					<div class="btn-floating red" ng-click="addImage(planeID,$index)"><i class="material-icons">image</i></div>
+					<div class="btn-floating red" ng-click="deleteNtt(planeID,$index)"><i class="material-icons">delete</i></div>
+					<!-- <div class="btn-floating red" ng-click="addTags(planeID,$index)"><i class="material-icons">format_quote</i></div> -->
+				</div>
+
+			</div>
+
+		</section>
+			<button class="btn" ng-click="addPlane()">Add new plane</button>
+
+		<footer class="hide footer">
+			<a ng-click="downloadData(this)">Save notes in a file</a>
+			<p>Extract notes from a file <br><input type="file" ng-file-select></p>
+		</footer>
+	</div>
+<script src="js/index.js"></script>
+
+</body>
+</html>
