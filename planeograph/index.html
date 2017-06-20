@@ -9,12 +9,18 @@
 	<link rel="stylesheet" href="css/style.css">
  	<link rel="stylesheet" href="css/materialize.css">	
 </head>
-<body class="grey lighten-2" style="padding: 0 7%;">
+<body class="grey lighten-2" stylea="padding: 0 7%;">
 	<div class="" ng-controller="PlaneographCtrl">
 	
 		<!-- Search  -->
 		<nav class="grey darken-2 white-text hiden">
-			<div class="btn-floating red darken-4"><i class="material-icons" style="line-height: 1.8;">search</i></div>
+			<select class="btn white black-text" ng-model="restrict" ng-init="restrict = '$';">
+				<option ng-value="$">all</option>
+				<option ng-value="title">title</option>
+				<option ng-value="content">content</option>
+				<option ng-value="tags">tags</option>
+			</select>
+			<input class="btn white black-text" ng-model="search.restrict">
 		</nav>
 	
 		<!-- Plane -->
@@ -31,7 +37,12 @@
 					<button class="btn-large blue" ng-click="addNtt($index,'note')">add note</button>
 				</nav>
 			</header>
-			<div ng-repeat="entity in plane.children track by $index" ng-attr-class="{{entity.bgColor}} {{entity.fgColor}} card col l4 m4 s12" ng-attr-id="ntt_{{planeID}}_{{$index}}">
+
+			<!-- Card -->
+			<div ng-repeat="entity in plane.children | filter:search track by $index" 
+				ng-init="noteID = $index" 
+				ng-attr-class="{{entity.bgColor}} accent-2 {{entity.fgColor}} card col l4 m4 s12" 
+				ng-attr-id="ntt_{{planeID}}_{{$index}}">
 				<!-- Top -->
 				
 				<div class="left">#{{$index+1}}</div>
@@ -42,8 +53,8 @@
 
 				<!-- Images -->
 				
-			<div class="card-image">
-					<img class="img" ng-repeat="image in entity.images track by $index" ng-attr-src="{{image.src}}" ng-attr-alt="{{image.src}}">
+				<div class="card-image" style="display: inline-flex;">
+					<img class="img" ng-style="{'height': '0%',width: 100/entity.images.length+'%'}" ng-repeat="image in entity.images track by $index" ng-attr-src="{{image.src}}" ng-click="deleteImage(planeID,noteID,$index)">
 				</div>
 
 				<!-- Content -->
@@ -53,7 +64,7 @@
 					<p class="card-content flow-text" contenteditable="true">{{entity.content}}</p>
 				</div>
 				<div class="divider"></div>
-				<span class="flow-text">{{entity.tags.join(',')}}</span>
+				<h5 class="tags flow-text" contenteditable="true">{{entity.tags.join(',')}}</h5>
 				<div class="divider"></div>
 				<!-- Buttons -->
 				
