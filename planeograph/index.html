@@ -9,18 +9,18 @@
 	<link rel="stylesheet" href="css/style.css">
  	<link rel="stylesheet" href="css/materialize.css">	
 </head>
-<body class="grey lighten-2" stylea="padding: 0 7%;">
+<body class="grey lighten-2">
 	<div class="" ng-controller="PlaneographCtrl">
 	
 		<!-- Search  -->
-		<nav class="grey darken-2 white-text hiden">
-			<select class="btn white black-text" ng-model="restrict" ng-init="restrict = '$';">
-				<option ng-value="$">all</option>
-				<option ng-value="title">title</option>
-				<option ng-value="content">content</option>
-				<option ng-value="tags">tags</option>
+		<nav class="row grey darken-2 white-text">
+			<select class="btn white black-text hide" ng-model="restrict" ng-init="restrict = '$';">
+				<option value="$">all</option>
+				<option value="title">title</option>
+				<option value="content">content</option>
+				<option value="tags">tags</option>
 			</select>
-			<input class="btn white black-text" ng-model="search.restrict">
+			<input class="btn white black-text" ng-model="search">
 		</nav>
 	
 		<!-- Plane -->
@@ -31,10 +31,11 @@
 			<header class="row">
 				<nav class="red lighten-2">
 					<span class="left">#{{planeID+1}}</span>
+					
 					<!-- Buttons -->
-				
+					
 					<button class="btn-large blue" ng-click="deletePlane($index)">delete plane</button>
-					<button class="btn-large blue" ng-click="addNtt($index,'note')">add note</button>
+					<!-- <button class="btn-large blue" ng-click="addNtt($index,'note')">add note</button> -->
 				</nav>
 			</header>
 
@@ -77,6 +78,7 @@
 
 			</div>
 
+			<button class="btn-floating red" style="margin-top: 20%;" ng-click="addNtt($index,'note')"><i class="material-icons">add</i></button>
 		</section>
 			<button class="btn" ng-click="addPlane()">Add new plane</button>
 
