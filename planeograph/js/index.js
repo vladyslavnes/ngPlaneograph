@@ -100,8 +100,6 @@
 			$scope.saveData();
 		}
 
-
-
 	});
 
 	app.directive("ngFileSelect",($http) => {
