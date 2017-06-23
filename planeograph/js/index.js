@@ -1,6 +1,6 @@
 	var app = angular.module('PlaneographApp', []);
 
-	app.controller('PlaneographCtrl',($scope,$http) => {
+	app.controller('PlaneographCtrl',($scope) => {
 
 		$scope.planes = [
 			{
@@ -17,6 +17,9 @@
 		$scope.saveData = () => {
 			window.localStorage.notes = JSON.stringify($scope.planes);
 		};
+
+		if (!window.localStorage.notes) $scope.saveData();
+
 		$scope.getData();
 
 		$scope.downloadData = (linkObj) => {
@@ -27,15 +30,16 @@
 		};
 
 		$scope.addNtt = (index) => {
-			var colors = ['blue white-text','white','green white-text','grey white-text','purple white-text','red lighten-1 white-text','pink darken-2','blue-grey white-text','teal white-text'];
+			var colors = ['blue','black','green','grey','purple','red lighten-1','pink darken-2','blue-grey','teal'];
 			obj = {
 				title: 'Lorem ipsum.',
-				color: colors[Math.round(Math.random()*colors.length)],
+				bgColor: colors[Math.floor(Math.random()*colors.length)],
+				fgColor: 'white-text',
 				content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, quidem.',
 				images: [
 					{src: 'img/sample-1.jpg'}
 				],
-				tags: []
+				tags: ['note']
 			}
 			$scope.planes[index].children.push(obj);
 			$scope.saveData();
@@ -44,7 +48,8 @@
 		$scope.saveNtt = (plane_index,index) => {
 			// $scope.planes[plane_index].children[index];
 			$scope.planes[plane_index].children[index].title = $('#ntt_'+plane_index+'_'+index+' .card-title').text();
-			$scope.planes[plane_index].children[index].content = $('#ntt_'+plane_index+'_'+index+' p').text();
+			$scope.planes[plane_index].children[index].content = $('#ntt_'+plane_index+'_'+index+' p.card-content').text();
+			$scope.planes[plane_index].children[index].tags = $('#ntt_'+plane_index+'_'+index+' h5').text().split(',');
 
 			$scope.planes[plane_index].children[index]['content'];
 			$scope.saveData();
@@ -57,12 +62,30 @@
 
 
 		$scope.addImage = (plane_index,index) => {
-			$scope.planes[plane_index].children[index].images.push({src: prompt('Image\'s URL')}); // $sce.trustAsResourceUrl
+			var data = prompt('Image\'s URL');
+			if (data) {	
+				$scope.planes[plane_index].children[index].images.push({src: data});
+				$scope.saveData();
+			}
+		}
+
+		$scope.deleteImage = (plane_index,note_index,index) => {
+			$scope.planes[plane_index].children[note_index].images.splice(index,1);
 			$scope.saveData();
 		}
 
+		$scope.addTags = (plane_index,index) => {
+			var tags = prompt('Tags (comma-separated)').split(',');
+			if (tags) {
+				for (tag of tags) 
+					$scope.planes[plane_index].children[index].tags.push(tag);
+				$scope.saveData();
+			}
+		}
+
 		$scope.setColor = (plane_index,index) => {
-			$scope.planes[plane_index].children[index].color = prompt('Set the card\'s color \n see color rules on http://materializecss.com/color.html');
+			$scope.planes[plane_index].children[index].bgColor = prompt('Set the card\'s background color \n see color rules on http://materializecss.com/color.html');
+			$scope.planes[plane_index].children[index].fgColor = prompt('Set the card\'s text color \n see color rules on http://materializecss.com/color.html')+'-text';
 			$scope.saveData();
 		}
 
@@ -76,8 +99,6 @@
 			$scope.planes.splice(index,1);
 			$scope.saveData();
 		}
-
-
 
 	});
 
